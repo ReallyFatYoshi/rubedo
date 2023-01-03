@@ -17,9 +17,9 @@ const name = JSON.parse(
 
 esbuild
   .build({
-    entryPoints: ["project/src/index.ts"],
+    entryPoints: ["project/behavior/src/index.ts"],
     bundle: true,
-    outfile: "project/scripts/index.js",
+    outfile: "project/behavior/scripts/index.js",
     minify: !isDev,
     platform: "neutral",
     watch: isDev,
@@ -40,16 +40,18 @@ esbuild
 
     if (!isDev) {
       const distDir = path.join(__dirname, "dist");
-      buildPack(path.join(__dirname,"project"),distDir);
+      buildPack("behavior",path.join(__dirname,"project","behavior"),distDir);
+      buildPack("resource",path.join(__dirname,"project","resource"),distDir);
+      buildPack("fullpack",distDir,distDir,".mcaddon");
     }
   });
 
-function buildPack(target,destination) {
+function buildPack(fileName,target,destination,ext=".mcpack") {
   if (!fs.existsSync(destination)) {
     fs.mkdirSync(destination);
   }
 
-  const output = fs.createWriteStream(path.join(destination,name + "." + ver + ".mcpack"));
+  const output = fs.createWriteStream(path.join(destination,fileName + "-" + name + "." + ver + ext));
   const archive = archiver("zip", {
     zlib: { level: 9 }, // Sets the compression level.
   });
