@@ -10,10 +10,6 @@ const ver = JSON.parse(
 const name = JSON.parse(
   fs.readFileSync(path.join(__dirname, "package.json"))
 )?.name;
-// const devDir = path?.join(
-//   process.env.USERPROFILE,
-//   "/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_behavior_packs/"
-// ) || "";
 
 esbuild
   .build({
@@ -43,6 +39,11 @@ esbuild
       buildPack("behavior",path.join(__dirname,"project","behavior"),distDir);
       buildPack("resource",path.join(__dirname,"project","resource"),distDir);
       buildPack("fullpack",distDir,distDir,".mcaddon");
+    } else {
+      console.log(
+        `\x1b[31m%s\x1b[0m`,
+        `[${new Date().toLocaleTimeString()}]`,"This feature is currently being worked on :P");
+      process.exit(0);
     }
   });
 
