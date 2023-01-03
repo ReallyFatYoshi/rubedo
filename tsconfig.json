@@ -16,6 +16,6 @@
     "emitDeclarationOnly": true,
     "declaration": true
   },
-  "include": ["src"],
-  "exclude": ["scripts", "node_modules"]
+  "include": ["**/src"],
+  "exclude": ["**/scripts", "node_modules"]
 }
