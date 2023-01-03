@@ -7,6 +7,9 @@ const isDev = process.argv[2] === "dev";
 const ver = JSON.parse(
   fs.readFileSync(path.join(__dirname, "package.json"))
 )?.version;
+const name = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "package.json"))
+)?.name;
 // const devDir = path?.join(
 //   process.env.USERPROFILE,
 //   "/AppData/Local/Packages/Microsoft.MinecraftUWP_8wekyb3d8bbwe/LocalState/games/com.mojang/development_behavior_packs/"
@@ -46,7 +49,7 @@ function buildPack(target,destination) {
     fs.mkdirSync(destination);
   }
 
-  const output = fs.createWriteStream(path.join(destination, ver + ".mcpack"));
+  const output = fs.createWriteStream(path.join(destination,name + "." + ver + ".mcpack"));
   const archive = archiver("zip", {
     zlib: { level: 9 }, // Sets the compression level.
   });
